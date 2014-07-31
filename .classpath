@@ -2,8 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="/usr/local/java/jdk1.7.0_45/jre/lib/rt.jar"/>
-	<classpathentry kind="lib" path="/usr/local/java/jdk1.7.0_45/lib/jconsole.jar"/>
-	<classpathentry kind="lib" path="/usr/local/java/jdk1.7.0_45/lib/tools.jar"/>
+	<classpathentry kind="lib" path="/usr/java/jdk1.7.0_55/jre/lib/rt.jar"/>
+	<classpathentry kind="lib" path="/usr/java/jdk1.7.0_55/lib/jconsole.jar"/>
+	<classpathentry kind="lib" path="/usr/java/jdk1.7.0_55/lib/tools.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

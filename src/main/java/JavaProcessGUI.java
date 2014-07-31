@@ -28,7 +28,7 @@ public class JavaProcessGUI {
 		String[][] memoryData = {
 				{"  updating  ","  updating  ","  updating  "}	
 		};
-		String[] javaProcesses = {"Process Name","PID","Live Threads","Peak Threads","Daemon Threads","Total Started Threads","Current CPU Use","Current Memory Use","Peak CPU use","Peak Memory Use"};
+		String[] javaProcesses = {"Process Name","PID","Live Threads","Peak Threads","Daemon Threads","Total Threads Started","Current CPU Use","Current Memory Use","Peak CPU Use","Peak Memory Use"};
 		String[][] processData = {{"  updating  ","updating","updating","updating","updating","updating","updating","updating","updating","updating"}};
 		
 		memJTable = new CreateTable(memoryData, memoryUsed).getTable();
@@ -41,7 +41,7 @@ public class JavaProcessGUI {
 		frame.pack();
         frame.setAlwaysOnTop(true);
 		
-		frame.setResizable(true);
+		frame.setResizable(false);
 		frame.pack();
 		frame.setVisible(true);
 	}

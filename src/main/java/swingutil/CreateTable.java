@@ -29,6 +29,8 @@ public class CreateTable extends JTable {
 	private JTable table;
 	private int width,height,tmp,id,widthID;
 	private double freeMem;
+	private boolean blink=true;
+	
 	
 	public CreateTable(String[][] rowData, String[] colData){
 		this.rowData =rowData;
@@ -88,10 +90,11 @@ public class CreateTable extends JTable {
 				try {
 					freeMem = ((Double.parseDouble((String)model.getValueAt(0, 2))/Double.parseDouble((String)model.getValueAt(0, 0)))*100);
 					if((row == 0 && column == 2) && id ==0){
-						if(freeMem<5)		c.setBackground(Color.RED);
-						else if(freeMem<10)	c.setBackground(Color.ORANGE);
+						if(freeMem<5) c.setBackground((blink = !blink) ? Color.WHITE : Color.RED);
+						else if(freeMem<10)	c.setBackground((blink = !blink) ? Color.WHITE : Color.ORANGE);
 						else if(freeMem<15)	c.setBackground(Color.YELLOW);
-						else				c.setBackground(Color.GREEN);
+						else c.setBackground(Color.GREEN);
+						
 						
 					}
 				} catch(Exception e) {
