@@ -41,6 +41,10 @@ public class CreateTable extends JTable {
 		setTable();
 		
 	}
+	
+	public String getDimension(){
+		return width + " " + height;
+	}
 
 	private void setDimensions() {
 		for(String widest: colData){			
@@ -113,7 +117,7 @@ public class CreateTable extends JTable {
 		table.getTableHeader().setForeground(Color.WHITE);
 		table.setFillsViewportHeight(true);
         table.setLayout(new BorderLayout());
-        table.setPreferredScrollableViewportSize(new Dimension(width*72,height*16));
+        table.setPreferredScrollableViewportSize(new Dimension(width*84,height*16));
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);

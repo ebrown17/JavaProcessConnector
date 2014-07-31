@@ -7,6 +7,7 @@ import java.lang.management.MemoryMXBean;
 import java.lang.management.ThreadMXBean;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -30,12 +31,15 @@ public class RunCommands {
 	private static Integer pid;
 	private static String line,name;
 	private static String [] free,names;
+	private static String[][] processData;
 	private static Commands command = Commands.getInstance();
 	private static final String CONNECTOR_ADDRESS = "com.sun.management.jmxremote.localConnectorAddress";
 	private static List<VirtualMachineDescriptor> vmdl= new ArrayList<VirtualMachineDescriptor>();
 	private static List<String> processList = new ArrayList<String>();
+	private static List<String[]> test = new ArrayList<String[]>();
 	private static HashMap<String, JavaProcess> processMap = new HashMap<String, JavaProcess>();
 	private static JavaProcess javaProcess;
+	private static int i;
 	private static long heapUsed,maxHeap;
 	private static double percentMem;
 	private static  DecimalFormat df = new DecimalFormat("#.##");
@@ -66,12 +70,18 @@ public class RunCommands {
 		
 		try { 
 			vmdl = VirtualMachine.list();
-			for(VirtualMachineDescriptor vd : vmdl) {
-				
-				processList.add(vd.id());
+			for(VirtualMachineDescriptor vd : vmdl) {				
 				
 				pid = Integer.parseInt(vd.id());
        	 		LocalVirtualMachine lvm = LocalVirtualMachine.getLocalVirtualMachine(pid);
+       	 		
+       	 		names = lvm.displayName().split("\\.");
+       	 		name = names[names.length-1].toString();
+       	 		
+       	 		//short lived java processes cause exception, can't attach to process
+       	 		if(name.equals("Jps"))continue; 
+       	 		
+       	 		processList.add(vd.id());
        	 	
        	 		final VirtualMachine vm = VirtualMachine.attach(vd.id());
        	 		String connectorAddress =null;
@@ -98,8 +108,7 @@ public class RunCommands {
        	 		maxHeap = memoryBean.getHeapMemoryUsage().getMax();
        	 		percentMem = ((double)heapUsed/(double)maxHeap)*100;
        	 	     	 	
-       	 		names = lvm.displayName().split("\\.");
-       	 		name = names[names.length-1].toString();
+       	 		
 	       	 	
 	       	 /*	System.out.println("Target VM is: "+ name+" " +vd.id());
 	       	 	System.out.println("Live Threads: "+remoteThreading.getThreadCount());
@@ -120,12 +129,17 @@ public class RunCommands {
 	       	 		
 	       	 		processMap.put(vd.id(), javaProcess);
 	       	 		
+	       	 	} else if (processMap.containsKey(vd.id())){
+	       	 		
+	       	 		javaProcess = processMap.get(vd.id());
+		       	 	javaProcess.setLiveThreads(String.valueOf(remoteThreading.getThreadCount()));
+	       	 		javaProcess.setPeakThreads(String.valueOf(remoteThreading.getPeakThreadCount()));
+	       	 		javaProcess.setDaemonThreads(String.valueOf(remoteThreading.getDaemonThreadCount()));
+	       	 		javaProcess.setStartedThreads(String.valueOf(remoteThreading.getTotalStartedThreadCount()));
+	       	 		javaProcess.setHeapUsed(String.valueOf(df.format(percentMem)));
+	       	 		
 	       	 	}
-	       	 	
-	       	 	//if( )
-	       	 	
-	       	 	
-	       	 	
+	       	
 	       	 	connector.close(); 
 	       	 	lvm=null;
 	       	 	pid=null;
@@ -143,13 +157,29 @@ public class RunCommands {
 			        if(!processList.contains(values.getKey())){
 			        	iterator.remove();
 					}
-			    }
-				
-				
+			    }			
 			}
+			
+			processData = new String[processMap.size()][10];
+			//i= 0;
+			for(JavaProcess process : processMap.values()){
+				
+				test.add(process.getProcessData());
+				//Arrays.fill(processData[i++], process.getProcessData());
+			}
+			
+			for(int i =0; i<test.size();i++){
+				for(int y =0; y <test.get(i).length;y++){
+					
+					processData[i][y]=Arrays.toString(test.get(i));
+				}
+			}
+			
+			GUI.setProcessTableText(processData);
+			processData=null;
 			System.out.println(processList.size() + " " +processList +  " " + processMap.size());
 			vmdl=null;
-		
+			test.clear();
 		} catch(Exception e){
 			e.printStackTrace();
 			System.out.println("Error in updating process table " + e);

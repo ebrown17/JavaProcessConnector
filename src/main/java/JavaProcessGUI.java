@@ -38,12 +38,10 @@ public class JavaProcessGUI {
 		
 		AddTable.toFrame(frame,memJTable,BorderLayout.NORTH);
 		AddTable.toFrame(frame,processJTable,BorderLayout.SOUTH);
-		frame.pack();
-        frame.setAlwaysOnTop(true);
 		
-		frame.setResizable(false);
-		frame.pack();
-		frame.setVisible(true);
+        frame.setAlwaysOnTop(true);		
+		frame.setResizable(true);
+		
 	}
 
 	
