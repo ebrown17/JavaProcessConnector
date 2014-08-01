@@ -1,37 +1,26 @@
 package main.java;
 
-import java.util.Scanner;
+public class JavaProcessConnector extends Thread {
 
+	public static void main(String[] args) {
 
-
-public class JavaProcessConnector extends Thread{
-	
-	
-	
-	public static void main(String[] args){
-		
-		
-		
 		GUI.startGUI();
-		
-		while(true){
-			
+
+		while (true){
+
 			RunCommands.updateMemoryTable();
 			RunCommands.updateJavaProcTable();
-			
-			try {
+
+			try{
 				Thread.sleep(2000);
-				
-			} catch (InterruptedException e) {
-				
+
+			} catch (InterruptedException e){
+
 				System.out.println("Error Thread sleep interrupted: " + e.getMessage());
 			}
-		
+
 		}
-		
-			
-				
-		
+
 	}
 
 }

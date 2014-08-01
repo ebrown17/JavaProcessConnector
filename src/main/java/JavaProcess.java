@@ -59,6 +59,6 @@ public class JavaProcess {
 	
 	public String[] getProcessData(){
 		
-		return new String[]{name, pid, lThreads,  pThreads,  dThreads, tSThreads, currentCPU, heapUsage, peakCPU, peakMemUse};
+		return new String[] { name, pid, lThreads, pThreads, dThreads, tSThreads, currentCPU, heapUsage, peakCPU, peakMemUse };
 	}
 }
