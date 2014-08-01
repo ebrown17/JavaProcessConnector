@@ -17,11 +17,11 @@ public class JavaProcessGUI {
 		frame.setSize(850,250);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		String[] memoryUsed = { "Total Memory in mb", "Used Memory in mb", "Free Memory in mb" };
-		String[][] memoryData = { { "  updating  ", "  updating  ", "  updating  " } };
+		String[] memoryUsed = { "Current Time" , "Total Memory in mb", "Used Memory in mb", "Free Memory in mb" };
+		String[][] memoryData = { { "  updating  ", "  updating  ", "  updating  ", "  updating  " } };
 		String[] javaProcesses = { "Process Name", "PID", "Live Threads", "Peak Threads", "Daemon Threads", "Total Threads Started",
-				"Current CPU Use", "Current Memory Use", "Peak CPU Use", "Peak Memory Use" };
-		String[][] processData = { { "  updating  ", "updating", "updating", "updating", "updating", "updating", "updating", "updating", "updating",
+				"Current CPU Use", "Current Memory Use", "% Heap Use", "Peak CPU Use", "Peak Memory Use" };
+		String[][] processData = { { "  updating  ", "updating", "updating", "updating", "updating", "updating", "updating", "updating", "updating", "updating",
 				"updating" } };
 
 		memJTable = new CreateTable(memoryData, memoryUsed).getTable();

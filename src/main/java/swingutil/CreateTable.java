@@ -73,10 +73,10 @@ public class CreateTable extends JTable {
 			private static final long serialVersionUID = 1L;
 
 			// selected row will be outlined
-			private Border outside = new MatteBorder(1, 0, 1, 0, Color.BLACK);
+			private Border outside = new MatteBorder(1, 0, 1, 0, Color.DARK_GRAY);
 			private Border inside = new EmptyBorder(0, 1, 0, 1);
 			private Border highlight = new CompoundBorder(outside, inside);
-
+			
 			public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
 
 				Component c = super.prepareRenderer(renderer,row,column);
@@ -86,8 +86,8 @@ public class CreateTable extends JTable {
 				// check to see if memory warning color needs to be changed
 				// System.out.println(freeMem);
 				try{
-					freeMem = ((Double.parseDouble((String) model.getValueAt(0,2)) / Double.parseDouble((String) model.getValueAt(0,0))) * 100);
-					if ((row == 0 && column == 2) && id == 0){
+					freeMem = ((Double.parseDouble((String) model.getValueAt(0,3)) / Double.parseDouble((String) model.getValueAt(0,1))) * 100);
+					if ((row == 0 && column == 3) && id == 0){
 						if (freeMem < 5)
 							c.setBackground((blink = !blink) ? Color.WHITE : Color.RED);
 						else if (freeMem < 10)
@@ -104,12 +104,14 @@ public class CreateTable extends JTable {
 				// selected row will be outlined
 				JComponent jc = (JComponent) c;
 				if (isRowSelected(row))
+					
 					jc.setBorder(highlight);
 
 				return c;
 			}
 		};
-
+		
+		
 		table.getTableHeader().setBackground(Color.DARK_GRAY);
 		table.getTableHeader().setForeground(Color.WHITE);
 		table.setFillsViewportHeight(true);

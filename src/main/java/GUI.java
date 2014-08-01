@@ -9,7 +9,7 @@ public class GUI {
 	static String[] memData, columnData;
 	static String[][] processData;
 	private static boolean firstRun = true;
-
+	
 	public static void startGUI() {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
@@ -27,7 +27,8 @@ public class GUI {
 				model.setValueAt(memData[0],0,0);
 				model.setValueAt(memData[1],0,1);
 				model.setValueAt(memData[2],0,2);
-				model.fireTableRowsUpdated(0,2);
+				model.setValueAt(memData[3],0,3);
+				model.fireTableRowsUpdated(0,3);
 				memData = null;
 				model = null;
 			}
@@ -48,6 +49,8 @@ public class GUI {
 						columnData = processData[i][x].replace("[","").replace("]","").split(",");
 
 						// System.out.println(processData[i][x]);
+						
+						//System.out.println(processData.length + " " + model.getRowCount());
 
 						if (processData.length < model.getRowCount()){
 
@@ -73,12 +76,24 @@ public class GUI {
 				}
 
 				gui.processJTable.setPreferredScrollableViewportSize(gui.processJTable.getPreferredSize());
+				
+				for(int column =0; column < model.getColumnCount(); column++){
+					for(int row =0; row<model.getRowCount();row++){
+						model.fireTableRowsUpdated(column,row);
+					}
+					
+				}
+				
+				
+				
+				//model.fireTableDataChanged();
 				gui.frame.pack();
+				
 				if (firstRun == true){
 					gui.frame.setVisible(true);
 					firstRun = false;
 				}
-				model.fireTableDataChanged();
+				
 				columnData = null;
 				processData = null;
 				model = null;
